@@ -1,6 +1,7 @@
 package com.chemseddinesaidi.springbootdemo.service;
 
 import com.chemseddinesaidi.springbootdemo.model.Employee;
+import com.chemseddinesaidi.springbootdemo.error.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,5 +20,18 @@ public class EmployeeServiceImp implements EmployeeService{
         }
         employees.add(employee);
         return employee;
+    }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        return employees;
+    }
+
+    @Override
+    public Employee getEmployeeById(String employeeId) {
+        return employees.stream()
+                .filter(employee -> employee.getEmployeeId().equals(employeeId))
+                .findFirst()
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with id: " + employeeId + "."));
     }
 }
