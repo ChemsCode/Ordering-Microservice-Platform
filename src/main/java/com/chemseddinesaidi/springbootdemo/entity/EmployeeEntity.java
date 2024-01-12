@@ -1,10 +1,14 @@
-package com.chemseddinesaidi.springbootdemo.model;
+package com.chemseddinesaidi.springbootdemo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@JsonIgnoreProperties(value = {"department"})
-public class Employee {
+@Entity
+@Table(name="tbl_employee")
+public class EmployeeEntity {
+
+    @Id
     private String employeeId;
     private String firstName;
     private String lastName;
@@ -47,7 +51,6 @@ public class Employee {
         return department;
     }
 
-//    @JsonIgnore
     public void setDepartment(String department) {
         this.department = department;
     }

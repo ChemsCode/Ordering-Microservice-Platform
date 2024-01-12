@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/employees")
-public class EmployeeController {
+@RequestMapping("/v2/employees")
+public class EmployeeV2Controller {
 
-    @Qualifier("employeeServiceImp")
+    @Qualifier("employeeV2ServiceImp")
     @Autowired
     private EmployeeService employeeService;
 
@@ -35,5 +35,4 @@ public class EmployeeController {
     public String deleteEmployeeById(@PathVariable String id){
         return employeeService.deleteEmployeeById(id);
     }
-
 }
