@@ -1,6 +1,9 @@
 package com.chemseddinesaidi.ProductService.service;
+import com.chemseddinesaidi.ProductService.controller.ProductController;
 import com.chemseddinesaidi.ProductService.entity.Product;
+import com.chemseddinesaidi.ProductService.exception.ProductServiceCustomException;
 import com.chemseddinesaidi.ProductService.model.ProductRequest;
+import com.chemseddinesaidi.ProductService.model.ProductResponse;
 import com.chemseddinesaidi.ProductService.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +29,22 @@ public class ProductServiceImpl implements ProductService{
 
         log.info("Product saved successfully with id: {}", product.getProductId());
         return product.getProductId();
+    }
+
+    @Override
+    public ProductResponse getProductById(long productId) {
+        log.info("getProductById method called with productId: {}", productId);
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductServiceCustomException("Product not found with id: " + productId, "PRODUCT_NOT_FOUND"));
+
+        ProductResponse productResponse = ProductResponse.builder()
+                .productId(product.getProductId())
+                .productName(product.getProductName())
+                .quantity(product.getQuantity())
+                .price(product.getPrice())
+                .build();
+
+        return productResponse;
     }
 }
