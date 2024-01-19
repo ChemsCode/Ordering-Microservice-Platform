@@ -54,3 +54,11 @@ management:
   tracing:
     sampling:
       probability: 1.0
+
+okta:
+  oauth2:
+    issuer: ${ISSUER}
+    audience: api://default
+    client-id: ${CLIENT_ID}
+    client-secret: ${CLIENT_SECRET}
+    scopes: openid, profile, email, offline_access
